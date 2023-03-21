@@ -1,6 +1,6 @@
-var notesReference = {"C": 256, "D": 293.665, "E": 329.628, "F": 349.228, "F#": 369.994, "G": 392, "A": 440, "B": 493.883, "C2": 524};
+var notesReference = {"C": 256, "D": 293.665, "E": 329.628, "F": 349.228, "F#": 369.994, "G": 392, "A": 440, "B": 493.883, "C2": 524, "": 0};
 var notesOrder = ["G", "G", "A", "B", "G", "B", "A", "D", "G", "G", "A", "B", "G", "G", "F#", "D", "G", "G", "A", "B", "C2", "B", "A","G",
-"F#", "D", "E", "F#", "G", "GY"];
+"F#", "D", "E", "F#", "G", "", "G", ""];
 var counter = 0;
 var end = false;
 
@@ -11,11 +11,7 @@ function playTone(frequency) {
   oscillator.frequency.value = frequency;
   oscillator.connect(audioContext.destination);
   oscillator.start();
-  if (end) {
-    oscillator.stop(audioContext.currentTime + 0.9);
-  } else {
-    oscillator.stop(audioContext.currentTime + 0.4);
-  }
+  oscillator.stop(audioContext.currentTime + 0.4);
 }
 
 function playAscending() {
@@ -32,15 +28,9 @@ function playAscending() {
 
 function playYankeeDoodle(){
   notesOrder.forEach(function(element) {
-  if (element == "GY") {
-    counter = counter + 1000;
-    end = true;
-    setTimeout(() => { playTone(notesReference["G"]); console.log("G")}, counter );
-  } else {
     counter = counter + 500;
     setTimeout(() => { playTone(notesReference[element]); console.log(element)}, counter );
-  }
-  });
+})
 }
 
 playYankeeDoodle()
